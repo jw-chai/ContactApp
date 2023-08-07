@@ -48,8 +48,8 @@ const EditContactScreen: React.FC<IEditContactScreenProps> = ({route}) => {
           style={styles.wrapper}
           enabled
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-          keyboardVerticalOffset={Platform.OS === 'ios' ? 70 : 0}>
-          <ScrollView style={styles.container}>
+          keyboardVerticalOffset={70}>
+          <ScrollView contentContainerStyle={styles.container}>
             <View style={styles.avatarContainer}>
               <TouchableOpacity style={styles.avatar} />
               <TouchableOpacity>
@@ -163,17 +163,20 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     padding: 18,
+    paddingBottom: 48,
   },
   textInput: {
     fontSize: 16,
     color: Color.text,
   },
   textInputBox: {
-    padding: 18,
     backgroundColor: Color.bg,
     borderBottomWidth: 1,
     borderBottomColor: '#eee',
     borderRadius: 8,
+    height: 50,
+    justifyContent: 'center',
+    paddingHorizontal: 16,
   },
   block: {
     marginBottom: 24,
