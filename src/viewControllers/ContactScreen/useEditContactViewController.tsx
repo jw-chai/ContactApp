@@ -1,8 +1,9 @@
 import {useState, useRef, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {Keyboard, TextInput} from 'react-native';
+import {Alert, Keyboard, TextInput} from 'react-native';
 import {IData} from '../../interfaces/dataInterface';
+import useContactViewModel from '../../viewModels/ContactScreen/useContactViewModel';
 
 const useEditContactViewController = ({contact}: {contact: IData}) => {
   const [firstName, setFirstName] = useState<string>('');
@@ -16,6 +17,7 @@ const useEditContactViewController = ({contact}: {contact: IData}) => {
   const phoneRef = useRef<TextInput>(null);
 
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
+  const {onEditContact} = useContactViewModel();
 
   useEffect(() => {
     const getSelectedContact = async () => {
@@ -59,6 +61,26 @@ const useEditContactViewController = ({contact}: {contact: IData}) => {
     Keyboard.dismiss();
   };
 
+  const onSave = () => {
+    if (!firstName || !firstName.trim()) {
+      Alert.alert('Please enter first name');
+      return;
+    }
+    if (!lastName || !lastName.trim()) {
+      Alert.alert('Please enter last name');
+      return;
+    }
+    const contactToBeUpdate = {
+      id: contact.id,
+      firstName,
+      lastName,
+      email,
+      phone,
+    };
+    onEditContact(contactToBeUpdate);
+    onBack();
+  };
+
   const onChangeText = (
     value: string,
     key: 'firstName' | 'lastName' | 'phone' | 'email',
@@ -96,6 +118,7 @@ const useEditContactViewController = ({contact}: {contact: IData}) => {
     lastNameRef,
     emailRef,
     phoneRef,
+    onSave,
   };
 };
 

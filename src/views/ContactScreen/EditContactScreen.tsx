@@ -35,6 +35,7 @@ const EditContactScreen: React.FC<IEditContactScreenProps> = ({route}) => {
     lastNameRef,
     emailRef,
     phoneRef,
+    onSave,
   } = useEditContactViewController({contact: route?.params?.contact});
   return (
     <>
@@ -120,7 +121,7 @@ const EditContactScreen: React.FC<IEditContactScreenProps> = ({route}) => {
               </TouchableOpacity>
             </View>
             <View style={styles.buttonContainer}>
-              <Button title={'Save'} onPress={() => {}} />
+              <Button title={'Save'} onPress={onSave} />
             </View>
           </ScrollView>
         </KeyboardAvoidingView>
