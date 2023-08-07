@@ -52,7 +52,9 @@ const EditContactScreen: React.FC<IEditContactScreenProps> = ({route}) => {
               <TouchableOpacity style={styles.avatar} />
             </View>
             <View style={styles.block}>
-              <Text style={styles.title}>First name</Text>
+              <Text style={styles.title}>
+                First name<Text style={styles.red}> *</Text>
+              </Text>
               <TouchableOpacity
                 style={styles.textInputBox}
                 onPress={onFocusFirstName}>
@@ -69,7 +71,10 @@ const EditContactScreen: React.FC<IEditContactScreenProps> = ({route}) => {
               </TouchableOpacity>
             </View>
             <View style={styles.block}>
-              <Text style={styles.title}>Last name</Text>
+              <Text style={styles.title}>
+                Last name<Text style={styles.red}> *</Text>
+              </Text>
+              <Text style={styles.label}>Surname / Family name</Text>
               <TouchableOpacity
                 style={styles.textInputBox}
                 onPress={onFocusLastName}>
@@ -159,7 +164,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   block: {
-    marginBottom: 18,
+    marginBottom: 24,
   },
   avatarContainer: {
     alignItems: 'center',
@@ -178,5 +183,14 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     marginTop: 18,
+  },
+  red: {
+    color: '#ff6565',
+    fontSize: 16,
+  },
+  label: {
+    fontSize: 14,
+    color: '#999',
+    marginBottom: 6,
   },
 });
