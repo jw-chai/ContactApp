@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
+  ActivityIndicator,
 } from 'react-native';
 import {Color} from '../../constants';
 import {Button, Header} from '../../components';
@@ -36,6 +37,7 @@ const EditContactScreen: React.FC<IEditContactScreenProps> = ({route}) => {
     emailRef,
     phoneRef,
     onSave,
+    isUpdating,
   } = useEditContactViewController({contact: route?.params?.contact});
   return (
     <>
@@ -50,6 +52,9 @@ const EditContactScreen: React.FC<IEditContactScreenProps> = ({route}) => {
           <ScrollView style={styles.container}>
             <View style={styles.avatarContainer}>
               <TouchableOpacity style={styles.avatar} />
+              <TouchableOpacity>
+                <Text style={styles.addText}>Add profile photo</Text>
+              </TouchableOpacity>
             </View>
             <View style={styles.block}>
               <Text style={styles.title}>
@@ -130,6 +135,13 @@ const EditContactScreen: React.FC<IEditContactScreenProps> = ({route}) => {
             </View>
           </ScrollView>
         </KeyboardAvoidingView>
+        {isUpdating && (
+          <View style={styles.loaderContainer}>
+            <View style={styles.loader}>
+              <ActivityIndicator color={Color.primary} animating />
+            </View>
+          </View>
+        )}
       </SafeAreaView>
     </>
   );
@@ -192,5 +204,23 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#999',
     marginBottom: 6,
+  },
+  addText: {
+    fontSize: 16,
+    color: Color.primary,
+    marginTop: 12,
+  },
+  loaderContainer: {
+    position: 'absolute',
+    flex: 1,
+    width: '100%',
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  loader: {
+    padding: 32,
+    borderRadius: 8,
+    backgroundColor: Color.primary + '22',
   },
 });

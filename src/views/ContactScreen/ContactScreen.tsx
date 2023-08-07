@@ -70,6 +70,13 @@ const ContactScreen: React.FC<IContactScreenProps> = () => {
             </View>
           ) : (
             <FlatList
+              ListHeaderComponent={
+                <View style={styles.contactNumberContainer}>
+                  <Text style={styles.label}>
+                    {contactList.length} contacts
+                  </Text>
+                </View>
+              }
               refreshing={isRefreshing}
               onRefresh={onRefresh}
               data={contactList}
@@ -117,6 +124,7 @@ const styles = StyleSheet.create({
     letterSpacing: 0.5,
     lineHeight: 24,
     color: Color.text,
+    flexShrink: 1,
   },
   icon: {
     width: 30,
@@ -127,5 +135,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
+  },
+  contactNumberContainer: {
+    paddingHorizontal: 18,
+    paddingVertical: 12,
+  },
+  label: {
+    fontSize: 14,
+    color: Color.label,
+    letterSpacing: 0.5,
   },
 });

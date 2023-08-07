@@ -10,6 +10,7 @@ const useEditContactViewController = ({contact}: {contact: IData}) => {
   const [lastName, setLastName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [phone, setPhone] = useState<string>('');
+  const [isUpdating, setIsUpdating] = useState(false);
 
   const firstNameRef = useRef<TextInput>(null);
   const lastNameRef = useRef<TextInput>(null);
@@ -77,8 +78,12 @@ const useEditContactViewController = ({contact}: {contact: IData}) => {
       email,
       phone,
     };
+    setIsUpdating(true);
     onEditContact(contactToBeUpdate);
-    onBack();
+    setTimeout(() => {
+      setIsUpdating(false);
+      onBack();
+    }, 200);
   };
 
   const onChangeText = (
@@ -119,6 +124,7 @@ const useEditContactViewController = ({contact}: {contact: IData}) => {
     emailRef,
     phoneRef,
     onSave,
+    isUpdating,
   };
 };
 
