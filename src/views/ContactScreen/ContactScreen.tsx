@@ -12,18 +12,21 @@ import {Color} from '../../constants';
 import {Header} from '../../components';
 import {IData} from '../../interfaces/dataInterface';
 import data from '../../models/api/data.json';
+import useContactViewController from '../../viewControllers/ContactScreen/useContactViewController';
 
 interface IContactScreenProps {
   navigation: any;
 }
 
-const ContactScreen: React.FC<IContactScreenProps> = ({navigation}) => {
+const ContactScreen: React.FC<IContactScreenProps> = () => {
+  const {onNavigateAddContact} = useContactViewController();
+
   const renderItems = ({item}: {item: IData}) => {
     return (
       <TouchableOpacity
         style={styles.contactList}
         onPress={() => {
-          navigation.navigate('EditContactScreen');
+          onNavigateAddContact(item);
         }}>
         <View style={styles.avatar} />
         <Text style={styles.paragraph} numberOfLines={2}>
