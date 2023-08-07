@@ -7,19 +7,18 @@ import {
   TouchableOpacity,
   FlatList,
   Image,
+  ActivityIndicator,
 } from 'react-native';
 import {Color} from '../../constants';
 import {Header} from '../../components';
 import {IData} from '../../interfaces/dataInterface';
-import data from '../../models/api/data.json';
 import useContactViewController from '../../viewControllers/ContactScreen/useContactViewController';
 
-interface IContactScreenProps {
-  navigation: any;
-}
+interface IContactScreenProps {}
 
 const ContactScreen: React.FC<IContactScreenProps> = () => {
-  const {onNavigateAddContact} = useContactViewController();
+  const {onNavigateAddContact, contactList, isLoading} =
+    useContactViewController();
 
   const renderItems = ({item}: {item: IData}) => {
     return (
@@ -60,11 +59,17 @@ const ContactScreen: React.FC<IContactScreenProps> = () => {
           }
         />
         <View style={styles.container}>
-          <FlatList
-            data={data}
-            renderItem={renderItems}
-            keyExtractor={(item: IData) => item.id.toString()}
-          />
+          {isLoading ? (
+            <View style={styles.loadingContainer}>
+              <ActivityIndicator animating />
+            </View>
+          ) : (
+            <FlatList
+              data={contactList}
+              renderItem={renderItems}
+              keyExtractor={(item: IData) => item.id.toString()}
+            />
+          )}
         </View>
       </SafeAreaView>
     </>
@@ -110,5 +115,10 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
     tintColor: '#fff',
+  },
+  loadingContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
   },
 });

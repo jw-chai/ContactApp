@@ -13,10 +13,9 @@ import {
 import {Color} from '../../constants';
 import {Button, Header} from '../../components';
 import useEditContactViewController from '../../viewControllers/ContactScreen/useEditContactViewController';
-import {IData} from '../../interfaces/dataInterface';
 
 interface IEditContactScreenProps {
-  route: {params: {contact: IData}};
+  route: any;
 }
 
 const EditContactScreen: React.FC<IEditContactScreenProps> = ({route}) => {
