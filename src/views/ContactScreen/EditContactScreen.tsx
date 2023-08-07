@@ -7,6 +7,8 @@ import {
   TextInput,
   ScrollView,
   TouchableOpacity,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import {Color} from '../../constants';
 import {Button, Header} from '../../components';
@@ -37,83 +39,89 @@ const EditContactScreen: React.FC<IEditContactScreenProps> = () => {
       <SafeAreaView style={styles.safeAreaViewHeader} />
       <SafeAreaView style={styles.safeAreaView}>
         <Header title="Edit Contact" onBack={onBack} />
-        <ScrollView style={styles.container}>
-          <View style={styles.avatarContainer}>
-            <TouchableOpacity style={styles.avatar} />
-          </View>
-          <View style={styles.block}>
-            <Text style={styles.title}>First name</Text>
-            <TouchableOpacity
-              style={styles.textInputBox}
-              onPress={onFocusFirstName}>
-              <TextInput
-                ref={firstNameRef}
-                style={styles.textInput}
-                placeholder={'Input first name'}
-                value={firstName}
-                onChangeText={text => onChangeText(text, 'firstName')}
-                returnKeyLabel="Next" //android
-                returnKeyType="next"
-                onSubmitEditing={onFocusLastName}
-              />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.block}>
-            <Text style={styles.title}>Last name</Text>
-            <TouchableOpacity
-              style={styles.textInputBox}
-              onPress={onFocusLastName}>
-              <TextInput
-                ref={lastNameRef}
-                style={styles.textInput}
-                placeholder={'Input last name'}
-                value={lastName}
-                onChangeText={text => onChangeText(text, 'lastName')}
-                returnKeyLabel="Next" //android
-                returnKeyType="next"
-                onSubmitEditing={onFocusEmail}
-              />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.block}>
-            <Text style={styles.title}>Email</Text>
-            <TouchableOpacity
-              style={styles.textInputBox}
-              onPress={onFocusEmail}>
-              <TextInput
-                ref={emailRef}
-                style={styles.textInput}
-                placeholder={'Input email'}
-                value={email}
-                onChangeText={text => onChangeText(text, 'email')}
-                returnKeyLabel="Next" //android
-                returnKeyType="next"
-                onSubmitEditing={onFocusPhone}
-              />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.block}>
-            <Text style={styles.title}>Phone</Text>
-            <TouchableOpacity
-              style={styles.textInputBox}
-              onPress={onFocusPhone}>
-              <TextInput
-                ref={phoneRef}
-                keyboardType="numeric"
-                style={styles.textInput}
-                placeholder={'Input phone'}
-                value={phone}
-                onChangeText={text => onChangeText(text, 'phone')}
-                returnKeyLabel="Next" //android
-                returnKeyType="next"
-                onSubmitEditing={onDismissKeyboard}
-              />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.buttonContainer}>
-            <Button title={'Save'} onPress={() => {}} />
-          </View>
-        </ScrollView>
+        <KeyboardAvoidingView
+          style={styles.wrapper}
+          enabled
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 70 : 0}>
+          <ScrollView style={styles.container}>
+            <View style={styles.avatarContainer}>
+              <TouchableOpacity style={styles.avatar} />
+            </View>
+            <View style={styles.block}>
+              <Text style={styles.title}>First name</Text>
+              <TouchableOpacity
+                style={styles.textInputBox}
+                onPress={onFocusFirstName}>
+                <TextInput
+                  ref={firstNameRef}
+                  style={styles.textInput}
+                  placeholder={'Input first name'}
+                  value={firstName}
+                  onChangeText={text => onChangeText(text, 'firstName')}
+                  returnKeyLabel="Next" //android
+                  returnKeyType="next"
+                  onSubmitEditing={onFocusLastName}
+                />
+              </TouchableOpacity>
+            </View>
+            <View style={styles.block}>
+              <Text style={styles.title}>Last name</Text>
+              <TouchableOpacity
+                style={styles.textInputBox}
+                onPress={onFocusLastName}>
+                <TextInput
+                  ref={lastNameRef}
+                  style={styles.textInput}
+                  placeholder={'Input last name'}
+                  value={lastName}
+                  onChangeText={text => onChangeText(text, 'lastName')}
+                  returnKeyLabel="Next" //android
+                  returnKeyType="next"
+                  onSubmitEditing={onFocusEmail}
+                />
+              </TouchableOpacity>
+            </View>
+            <View style={styles.block}>
+              <Text style={styles.title}>Email</Text>
+              <TouchableOpacity
+                style={styles.textInputBox}
+                onPress={onFocusEmail}>
+                <TextInput
+                  ref={emailRef}
+                  style={styles.textInput}
+                  placeholder={'Input email'}
+                  value={email}
+                  onChangeText={text => onChangeText(text, 'email')}
+                  returnKeyLabel="Next" //android
+                  returnKeyType="next"
+                  onSubmitEditing={onFocusPhone}
+                />
+              </TouchableOpacity>
+            </View>
+            <View style={styles.block}>
+              <Text style={styles.title}>Phone</Text>
+              <TouchableOpacity
+                style={styles.textInputBox}
+                onPress={onFocusPhone}>
+                <TextInput
+                  ref={phoneRef}
+                  keyboardType="numeric"
+                  style={styles.textInput}
+                  placeholder={'Input phone'}
+                  value={phone}
+                  onChangeText={text => onChangeText(text, 'phone')}
+                  returnKeyLabel="Next" //android
+                  returnKeyType="next"
+                  onSubmitEditing={onDismissKeyboard}
+                />
+              </TouchableOpacity>
+            </View>
+            <View style={styles.buttonContainer}>
+              <Button title={'Save'} onPress={() => {}} />
+            </View>
+          </ScrollView>
+        </KeyboardAvoidingView>
       </SafeAreaView>
     </>
   );
@@ -127,6 +135,9 @@ const styles = StyleSheet.create({
   },
   safeAreaView: {
     backgroundColor: '#fff',
+    flex: 1,
+  },
+  wrapper: {
     flex: 1,
   },
   container: {
