@@ -13,10 +13,13 @@ import {
 import {Color} from '../../constants';
 import {Button, Header} from '../../components';
 import useEditContactViewController from '../../viewControllers/ContactScreen/useEditContactViewController';
+import {IData} from '../../interfaces/dataInterface';
 
-interface IEditContactScreenProps {}
+interface IEditContactScreenProps {
+  route: {params: {contact: IData}};
+}
 
-const EditContactScreen: React.FC<IEditContactScreenProps> = () => {
+const EditContactScreen: React.FC<IEditContactScreenProps> = ({route}) => {
   const {
     firstName,
     lastName,
@@ -33,7 +36,7 @@ const EditContactScreen: React.FC<IEditContactScreenProps> = () => {
     lastNameRef,
     emailRef,
     phoneRef,
-  } = useEditContactViewController();
+  } = useEditContactViewController({contact: route?.params?.contact});
   return (
     <>
       <SafeAreaView style={styles.safeAreaViewHeader} />

@@ -1,9 +1,10 @@
-import {useState, useRef} from 'react';
+import {useState, useRef, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {Keyboard, TextInput} from 'react-native';
+import {IData} from '../../interfaces/dataInterface';
 
-const useEditContactViewController = () => {
+const useEditContactViewController = ({contact}: {contact: IData}) => {
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
@@ -15,6 +16,17 @@ const useEditContactViewController = () => {
   const phoneRef = useRef<TextInput>(null);
 
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
+
+  useEffect(() => {
+    const getSelectedContact = async () => {
+      setFirstName(contact.firstName);
+      setLastName(contact.lastName);
+      setEmail(contact?.email ?? '');
+      setPhone(contact?.phone ?? '');
+    };
+
+    getSelectedContact();
+  }, [contact]);
 
   const onBack = () => {
     navigation.goBack();
