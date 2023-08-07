@@ -6,6 +6,7 @@ import {
   Text,
   TouchableOpacity,
   FlatList,
+  Image,
 } from 'react-native';
 import {Color} from '../../constants';
 import {Header} from '../../components';
@@ -36,7 +37,25 @@ const ContactScreen: React.FC<IContactScreenProps> = ({navigation}) => {
     <>
       <SafeAreaView style={styles.safeAreaViewHeader} />
       <SafeAreaView style={styles.safeAreaView}>
-        <Header title="Contact list" />
+        <Header
+          title="Contact list"
+          leftComponent={
+            <TouchableOpacity>
+              <Image
+                source={require('../../assets/images/search.png')}
+                style={styles.icon}
+              />
+            </TouchableOpacity>
+          }
+          rightComponent={
+            <TouchableOpacity>
+              <Image
+                source={require('../../assets/images/plus.png')}
+                style={styles.icon}
+              />
+            </TouchableOpacity>
+          }
+        />
         <View style={styles.container}>
           <FlatList
             data={data}
@@ -83,5 +102,10 @@ const styles = StyleSheet.create({
     letterSpacing: 0.5,
     lineHeight: 24,
     color: Color.text,
+  },
+  icon: {
+    width: 30,
+    height: 30,
+    tintColor: '#fff',
   },
 });
