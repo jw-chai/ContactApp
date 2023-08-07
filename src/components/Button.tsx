@@ -27,7 +27,8 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#fff',
     fontSize: 16,
-    letterSpacing: 0.6,
+    fontWeight: 'bold',
+    letterSpacing: 0.5,
   },
   button: {
     backgroundColor: Color.primary,
