@@ -17,8 +17,13 @@ import useContactViewController from '../../viewControllers/ContactScreen/useCon
 interface IContactScreenProps {}
 
 const ContactScreen: React.FC<IContactScreenProps> = () => {
-  const {onNavigateAddContact, contactList, isLoading} =
-    useContactViewController();
+  const {
+    onNavigateAddContact,
+    contactList,
+    isLoading,
+    isRefreshing,
+    onRefresh,
+  } = useContactViewController();
 
   const renderItems = ({item}: {item: IData}) => {
     return (
@@ -65,6 +70,8 @@ const ContactScreen: React.FC<IContactScreenProps> = () => {
             </View>
           ) : (
             <FlatList
+              refreshing={isRefreshing}
+              onRefresh={onRefresh}
               data={contactList}
               renderItem={renderItems}
               keyExtractor={(item: IData) => item.id.toString()}
